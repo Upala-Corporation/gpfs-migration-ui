@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: gpfs-migration-ui
+  name: gpfs-migration-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gpfs-migration-ui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gpfs-migration-ui
+    spec:
+      containers:
+        - image: phxdecideacrdev.azurecr.io/gpfs-archiver-ui:latest
+          name: gpfs-migration-ui
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REACT_APP_API_BASE_URL
+              value: https://archive.phoenixdev.optumlabs.com
+            - name: REACT_APP_BASE_URL
+              value: https://archive.phoenixdev.optumlabs.com
+            - name: REACT_APP_OAUTH_URL
+              value: https://login.microsoftonline.com/88b9bee5-7cac-46be-a0fb-8e374c15e206
+            - name: REACT_APP_OAUTH_CLIENT_ID
+              value:  0531fcaf-ff5e-4ebd-a9d8-444ea513e482
+            - name: REACT_APP_OAUTH_REDIRECT_URI
+              value:  https://archive.phoenixdev.optumlabs.com/code
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: gpfs-migration-ui-svc
+  name: gpfs-migration-ui-svc
+spec:
+  selector:
+    app.kubernetes.io/name: gpfs-migration-ui
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
