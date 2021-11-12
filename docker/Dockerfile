@@ -10,7 +10,7 @@ RUN yarn build
 # Stage 2 - deploy
 FROM nginx:alpine
 
-RUN apk upgrade busybox
+RUN apk upgrade busybox curl
 
 WORKDIR /etc/nginx
 # Setting nginx configuration
@@ -26,7 +26,6 @@ RUN touch /var/run/nginx.pid && \
   chown -R archiveruser:archivergroup /var/cache/nginx && \
   chown -R archiveruser:archivergroup /usr/share/nginx/html && \
   chown -R archiveruser:archivergroup /etc/nginx
-
 
 USER archiveruser
 
