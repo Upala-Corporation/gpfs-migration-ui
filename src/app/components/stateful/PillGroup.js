@@ -27,7 +27,7 @@ export default class PillGroup extends Component {
                             { this.props.title }     
                         </div>
                         <div style={{ flex:'auto', justifyContent: "flex-end" }}>
-                            <Button className="float-right" onClick={() => this.viewModel.downloadFiles()}>Download Files</Button>
+                            <Button className="float-right" onClick={() => this.viewModel.downloadFiles()}>Restore</Button>
                         </div>
                     </div>
                 </Card.Header>

@@ -58,7 +58,7 @@ export default class FileTreeCard extends Component {
                             { this.props.title }     
                         </div>
                         <div style={{ flex:'auto', justifyContent: "flex-end" }}>
-                            <Button className="float-right" onClick={() => this.viewModel.uploadFile()}>Upload Files</Button>
+                            <Button className="float-right" onClick={() => this.viewModel.uploadFile()}>Archive</Button>
                         </div>
                     </div>
                 </Card.Header>

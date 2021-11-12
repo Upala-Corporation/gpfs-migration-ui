@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { attachModelToView } from 'rhelena';
 
 import { Form, Modal, Button } from 'react-bootstrap';
-import Select from 'react-select'
+import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 
 import UploadFilesModel from './UploadFilesModel';
 
@@ -30,7 +31,15 @@ export default class UploadFiles extends Component {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formAdGroups">
                             <Form.Label>Groups with Read Access</Form.Label>
-                            <Select onChange={(select) => this.viewModel.handleAdGroupsSelect(select)} options={this.state.userGroups} isMulti />
+                            <AsyncSelect 
+                                onChange={(select) => this.viewModel.handleAdGroupsSelect(select)} 
+                                // options={this.state.userGroups} 
+                                isMulti 
+                                defaultOptions={this.state.userGroups}
+                                cacheOptions={true}
+                                loadOptions={(inputValue) => this.viewModel.loadOptions(inputValue)}
+                                isLoading={this.state.isLoading}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formDataAdmin">
                             <Form.Label>Data Admin</Form.Label>
